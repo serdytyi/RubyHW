@@ -1,5 +1,5 @@
 class Pet
-  attr_accessor :mood, :health_scale, :hunger_scale, :toilet_patient, :alertness, :asleep
+  attr_accessor :mood, :health_scale, :hunger_scale, :toilet_patient, :alertness, :asleep, :alertness,:comfort
   attr_writer  :name
   attr_reader :animal_type
 
@@ -13,66 +13,71 @@ class Pet
       @toilet_patient = 0 
       @alertness = 3
       @comfort = 5
-      @food_likes = ['meat', 'candy', 'cake']
   end
 
   def greetings
       puts "Привіт,покидьки,я #{@name} - #{@animal_type},  забирайтесь звідси!"
+      @alertness +=1
   end
 
-  def feed(type = 'coffee')
-      p ' Дайте побільше корму, ' + @name + ' полюбляє ласувати! '
+  def feed
+      puts " Дайте побільше корму, #{@name} полюбляє ласувати! "
       @mood +=5
-      if @food_likes.include?(type)
-        p 'thanks that is my favorite food'
-        @mood =+ 10 
-      end
       @toilet_patient +=4
       @hunger_scale +=3
-      @toilet_pat
-  end
+      some_time
+  end    
 
   def dog_bit_door
-      p '  ' + @name + ' полюбляє ласувати! '
+      puts "Хм...який цікавий смак...Але #{@name} подобається!"
       @alertness +=1
       @health_scale -=1
       some_time
   end
 
   def eat_dessert
-        p ' Дайте побільше корму, ' + @name + ' полюбляє ласувати! '
+      puts "  боже,дайте мені ще одну штуку... краще усю пачку!!! "
+      some_time
   end
 
-  def toiletOutside
-      p ' Дайте побільше корму, ' + @name + ' полюбляє ласувати! '
+  def toilet_outside
+      puts "Сонце світить,вітер віє,собаче життя чудове..."
+      some_time
   end
 
-  def toiletInside
-      p ' Дайте побільше корму, ' + @name + ' полюбляє ласувати! '
+  def toilet_inside
+      puts "Сонце світить,вітер віє,собаче життя чудове..."
+      some_time
   end
 
-  def someoneComesIn
-      p ' Дайте побільше корму, ' + @name + ' полюбляє ласувати! '
+  def someone_comes_in
+      puts "Сонце світить,вітер віє,собаче життя чудове..."
+      some_time
   end
 
   def training
-      p ' Дайте побільше корму, ' + @name + ' полюбляє ласувати! '
+      puts "блаблабла"
+      some_time
   end
 
-  def playWithToy
+  def play_with_toy
       p ' Привіт,покидьки,я ' + @name + ' -' + @animal_type + ', забирайтесь звідси!'
+      some_time
   end
 
-  def grab_Paw
+  def grab_paw
       p ' забери свої пальці,інакше я тебе просто розірву на шматки...!!! '
+      some_time
   end
 
   def go_swimming
       p ' забери свої пальці,інакше я тебе просто розірву на шматки...!!! '
+      some_time
   end
 
   def sniff_with_friend
       p ' забери свої пальці,інакше я тебе просто розірву на шматки...!!! '
+      some_time
   end
 
   def pick_food_away
@@ -97,15 +102,28 @@ class Pet
   end
 
   def help
-      p 'Привіт, ви граєте з злою собацюрою - Френком.
-      Ви можете : пограти з ним - pet.playWithToy '
+      p 'Привіт, ви граєте з злою собацюрою - Френком.Крок вліво чи вправо - відкушені пальці. Маєте питання - пишіть на antonserdytyi@gmail.com '
   end
   
   def menu 
     puts "\n======================Menu========================"
-    p '1. \'walk\' go let me go outside'
-    p '2. \'help\' to lern how to use this program'
-    p '3. \'exit\' to return to console'
+    p '1. \'greetings\' привітайтесь з малим'
+    p '2. \'feed\' спробуйте вдало нагодувати цього розбійника'
+    p '3. \'dog_bit_door\' Френк намагатиметься прогризти двері!'
+    p '4. \'eat_dessert\' Френк отримає вкусняху'
+    p '5. \'toilet_outside\' Відправте собацюру напудити на вулицю!'
+    p '6. \'toilet_inside\' Влаштуйте "аварію" в квартирі...'
+    p '7. \'someone_comes_in\' Хтось прийшов до Френка додому '
+    p '8. \'training\' Потренуйте малого!'
+    p '9. \'play_with_toy\' Пограйтесь з улюбленою іграшкою Ф'
+    p '10. \'grab_paw\' Френку, дай лапу! '
+    p '11. \'go_swimming\' Поплаваємо разом? '
+    p '12. \'sniff_with_friend\' Понюхаємось з іншими чотирилапими? '
+    p '13. \'pick_food_away\' Спробуйте забрати в Ф їжу '
+    p '14. \'walk\' Вигуляйте Френка! '
+    p '15. \'go_rest\' Відправте цуцика відпочити '
+    p '16. \'help\' Підтримка'
+    p '17. \'exit\' Повернутись до консолі'
     p '=================================================='
   end
   private
@@ -114,13 +132,13 @@ class Pet
     @toilet_patient -= 3
     @hunger_scale +=3
     if @toilet_patient == 0
-      p @name + 'напудив здоровенну калюжу...' 
+      puts " #{@name} напудив здоровенну калюжу..."
     end
   end
 
 end
 
-pet = Pet.new 'Турбо Френкє'
+pet = Pet.new 'Турбо Френк'
 
 loop do
   pet.menu
@@ -131,17 +149,3 @@ loop do
 rescue NoMethodError
   next p 'wrong command try again' 
 end
-
-  # case command
-  # when 'exit'
-  #   return
-  # else
-  #   begin
-  #     pet.public_send(command)
-  #   rescue NoMethodError
-  #     next p 'wrong command try again' 
-  #   end
-  # end
-
-# help ( метод з текстом )
-# menu (буде виводитись кожен раз після ткожного кроку циклу ( після виконання якогось методу))
