@@ -23,8 +23,8 @@ class Pet
   def feed
       puts " Дайте побільше корму, #{@name} полюбляє ласувати! "
       @mood +=5
-      @toilet_patient +=4
-      @hunger_scale +=3
+      @toilet_patient -=3
+      @hunger_scale -=3
       some_time
   end    
 
@@ -37,68 +37,86 @@ class Pet
 
   def eat_dessert
       puts "  боже,дайте мені ще одну штуку... краще усю пачку!!! "
+      @hunger_scale -=2
       some_time
   end
 
   def toilet_outside
       puts "Сонце світить,вітер віє,собаче життя чудове..."
+      @toilet_patient +=3
       some_time
   end
 
   def toilet_inside
-      puts "Сонце світить,вітер віє,собаче життя чудове..."
+      puts "Сталась невеличка аварія,схоже доведеться замінити новенький паркет..."
+      @toilet_patient +=2
       some_time
   end
 
   def someone_comes_in
-      puts "Сонце світить,вітер віє,собаче життя чудове..."
+      puts "Ти хто в чорта такий,я ж тебе не знаю...!!!ГАВГАВГАВ"
+      @alertness +=5
       some_time
   end
 
   def training
-      puts "блаблабла"
+      puts "знову???....Добре, я ще раз принесу цю гілку,але це вже востаннє..."
+      @mood -=5
+      @health_scale +=2
+      @comfort -=2
       some_time
   end
 
   def play_with_toy
-      p ' Привіт,покидьки,я ' + @name + ' -' + @animal_type + ', забирайтесь звідси!'
+      puts "супер, це моя улюблена іграааашка...Нікому її не віддам!!!"
+      @mood +=2
+      @alertness +=4
       some_time
   end
 
   def grab_paw
-      p ' забери свої пальці,інакше я тебе просто розірву на шматки...!!! '
+      puts "забери свої пальці,інакше я тебе просто розірву на шматки...!!! "
+      @mood -=2
+      @alertness +=2
       some_time
   end
 
   def go_swimming
-      p ' забери свої пальці,інакше я тебе просто розірву на шматки...!!! '
+      puts " чооооорт,я ж боюююсь водии.... ніііііі...Вам про це не казали??? "
+      @mood -=3
+      @health_scale -=2
+      @comfort -=3
       some_time
   end
 
   def sniff_with_friend
-      p ' забери свої пальці,інакше я тебе просто розірву на шматки...!!! '
+      puts " привіт,друже,чим тебе сьогодні годували, що бачив? "
+      @alertness =+1
       some_time
   end
 
   def pick_food_away
       case @mood
       when 0...3
-          p ' тобі кінець,хазяїне ' + 'ГАВ-ГАВ-ГАВ-ГАВ!!!'
+          puts "тобі кінець,хазяїне, ГАВ-ГАВ-ГАВ-ГАВ!!!"
       when 4...6
-          p ' останнє попередження ' + 'ГАВ-ГАВ-ГАВ-ГАВ!!!'
+          puts " останнє попередження - ГАВ-ГАВ-ГАВ-ГАВ!!!"
       when 7...10
-          p ' УРРРРРРРРРР,кхе ' + 'ГАВ-ГАВ-ГАВ-ГАВ!!!'    
+          puts "кхе,кхе ГАВ-ГАВ-ГАВ-ГАВ!!!"    
       else
-          p 'я все рівно тебе їм'  
+          puts "я все рівно тебе їм"  
       end
   end
 
   def walk
-      p ' Ви вигулюєте ' + @name 
+      puts "вухууууу, пішли в парк, там сьогодні усі мої друзі !!!"
   end
 
   def go_rest
-      p @name + ' відправляється на відпочинок '
+      puts " хууууух, мабуть піду я вже відпочивати..." 
+      @alertness -=5
+      @comfort +=5
+      @asleep = true
   end
 
   def help
@@ -134,11 +152,20 @@ class Pet
     if @toilet_patient == 0
       puts " #{@name} напудив здоровенну калюжу..."
     end
+    if @hunger_scale == 10
+        puts " #{@name} помирає...Вже настали часи Голодомору?"
+    end
+    if @alertness >= 10
+        puts " #{@name} вже більше схожий на бійця ЗСУ,ніж на миле цуценя.Постійні візити та тренування зробили його злим та агресивним"
+    end
+    if @health_scale == 0
+        puts " #{@name} помирає...Втопили,замордували.заганяли? Ці слова будуть написані на його надгробку."
+    end
   end
 
 end
 
-pet = Pet.new 'Турбо Френк'
+pet = Pet.new 'Френк'
 
 loop do
   pet.menu
@@ -147,5 +174,5 @@ loop do
   
   pet.public_send(command)
 rescue NoMethodError
-  next p 'wrong command try again' 
+  next puts "wrong command try again" 
 end
