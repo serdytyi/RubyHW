@@ -5,12 +5,11 @@ p arr.max
 p arr.min
 p arr.sort
 p arr.sort { |a, b| b <=> a }
-p arr.delete_if { |a| a.odd? }
-# – залишити тільки ті числа, які без остачі ділятся на 3;
-p arr.select { |el| el%3==0 }
+p arr.delete_if(&:odd?)
+p arr.select { |el| el % 3 == 0 }
 p arr.uniq
 p arr.map { |el| el/10.0 }
-p arr.map { |el| el > 0 && el<=255  ? el.chr : el  }
+p arr.map { |el| el.positive? && el<=255 ? el.chr : el }
 # – змінити місцями мінімальний і максимальний елементи масиву;
 min = arr.min
 arr[arr.index(min)] = arr.max
